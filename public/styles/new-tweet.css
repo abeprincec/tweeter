@@ -1,0 +1,119 @@
+.new-tweet {
+    background-color: #eeeeee;
+    max-width: 400px;
+    margin: auto;
+    border: 1px solid #d6d6d6;
+    border-radius: 5px;
+
+}
+
+.new-tweet .new-tweet-header {
+    margin: 5px 10px 5px 10px;
+    color: #244751
+}
+
+.new-tweet hr {
+    margin: 10px;
+    width: 95%;
+}
+
+.new-tweet textarea {
+    padding: 10px;
+    width: 95%;
+    margin: 0 10px 0 10px;
+}
+
+.new-tweet input[type=submit] {
+    margin: 5px 0px 5px 10px;
+}
+
+ .exceeded {
+    color: #FF0000;
+}
+
+
+
+article.tweet {
+    margin: 10px;
+    border: 1px solid #b6b6b6;
+    border-radius: 5px;
+    opacity: 0.8;
+
+}
+
+article.tweet:hover {
+   
+    opacity: 1;
+
+}
+article.tweet header {
+   
+    padding: 10px;
+    background-color: #eee;
+    overflow: auto;    
+      border-radius: 2px;
+
+   
+
+}
+
+article.tweet header img{
+    float: left;
+    border: 1px solid #b6b6b6;    
+    border-radius: 5px;
+    width: 70px;
+    
+} 
+
+
+article.tweet header .tweet-name{
+    float: left;
+    margin-left : 10px;
+    color: #244751; 
+    
+}
+
+article.tweet header .tweet-handler{
+    float: right;
+    margin-top : 10px;
+    color: #8E8E8E;
+    
+}
+
+article.tweet tweet-msg-container {
+    padding: 20px;
+}
+
+article.tweet  .tweet-message{
+   margin: 10px;
+   color: #111111;
+    
+}
+
+hr {
+    margin: 0;
+}
+
+article.tweet  footer {
+    padding-bottom: 10px;
+    margin: 10px;
+  
+    
+ }
+
+
+article.tweet  footer p{
+    font-size: 10px;
+    padding: 0px;  
+    margin: 0px;
+    float: left;
+ }
+
+ article  footer .footer-icons{
+    float: right;
+     
+ }
+
+ .fa-font-awesome-flag .fa-retweet .fa-heart {
+     color: #244751;
+ }

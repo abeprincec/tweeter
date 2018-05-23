@@ -15,11 +15,24 @@ html {
  */
 
 body {
-  margin: 0;
-  color: #244751;
+  
   background-color: #eee;
+  font-family: 'Roboto Condensed';
+
 }
 
+
+ 
 /*
  * Additional CSS can be defined below or in other CSS files, as per instructions
  */
+
+
+  .container{
+    padding-top: 140px;
+  max-width: 450px;
+  background-color: #FFF;
+  margin: auto;
+  padding-bottom : 20px;
+  }
+
