@@ -27,3 +27,16 @@
 
 }
 
+#nav-bar .header-button {
+    margin-top: 10px;
+    float: right;
+    background-color: #FFFFFF;
+    border: 1px solid #b6b6b6;    
+    border-radius: 5px;
+    padding: 10px;  
+    color: #111111;
+    font-size: 1.5rem;
+
+
+}
+
