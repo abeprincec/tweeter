@@ -68,6 +68,28 @@ $(document).ready(function() {
 
 	//create one tweet element
 	function createTweetElement(tweet) {
+		function changeTime(date) {
+			var currentDate = Date.now();
+			var seconds = (currentDate - date) / 1000;
+			var minutes = (currentDate - date) / 1000 / 60;
+			var hours = (currentDate - date) / 1000 / 60 / 60;
+			if (seconds < 60) {
+			  return `${Math.floor(seconds)} seconds ago`;
+			} else {
+			  if (minutes > 1 && minutes < 60) {
+				return `${Math.floor(minutes)} minutes ago`;
+			  } else {
+				if (minutes > 60 && hours < 24) {
+				  return `${Math.floor(hours)} hours ago`;
+				} else {
+				  if (hours > 24) {
+					return `${Math.floor(hours / 24)} days ago`;
+				  }
+				}
+			  }
+			}
+		  }
+
 		//		const $tweet = $('<article>').addClass('tweet');
 		let $tweet = ` <article class="tweet"><header class="tweet-header">
         <img src="${tweet.user.avatars.small}"> </img>
@@ -80,7 +102,7 @@ $(document).ready(function() {
     </div>
     <hr>
     <footer>
-      <p>${tweet.created_at}</p>
+      <p>${changeTime(tweet.created_at)}</p>
       <div class="footer-icons">
         <i class="fab fa-font-awesome-flag"></i>
         <i class="fas fa-retweet"></i>
