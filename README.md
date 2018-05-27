@@ -17,3 +17,7 @@ This repository is the starter code for the project: Students will fork and clon
 - Node 5.10.x or above
 - MongoDB 2.2
 
+
+![ComposeTweet](https://raw.githubusercontent.com/abeprincec/tweeter/a9ac0e4c39fe9c4cb1e973f398606c12a3a5caf4/server/routes/docs/composeTweet.png)
+![Tweets](https://raw.githubusercontent.com/abeprincec/tweeter/a9ac0e4c39fe9c4cb1e973f398606c12a3a5caf4/server/routes/docs/Tweets.png)
+
