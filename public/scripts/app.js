@@ -64,10 +64,20 @@ $(document).ready(function() {
 				data: 'text=' + id,
 				success: function() {
 					$icon.toggleClass('liked');
+					
 				},
 			});
 		}
 	});
+
+	const reloadTweet = (tweetID, $article) => {
+		$.getJSON(`/tweets/${tweetID}`, data => {
+		  const tweetData = data[0];
+		  if (!tweetData) return;
+		  const $tweet = createTweetElement(tweetData);
+		  $article.html($tweet.html());
+		});
+	  };
 
 	//render tweet after composing tweet
 	function renderNewTweet(data) {
