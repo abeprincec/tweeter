@@ -5,7 +5,6 @@ const express = require('express');
 const tweetsRoutes = express.Router();
 
 module.exports = function(DataHelpers) {
-  
 	tweetsRoutes.get('/', function(req, res) {
 		DataHelpers.getTweets((err, tweets) => {
 			if (err) {
@@ -32,9 +31,30 @@ module.exports = function(DataHelpers) {
 				text: req.body.text,
 			},
 			created_at: Date.now(),
+			likes: 0,
 		};
 
 		DataHelpers.saveTweet(tweet, err => {
+			if (err) {
+				res.status(500).json({ error: err.message });
+			} else {
+				res.status(201).send();
+			}
+		});
+	});
+	//increment likes on a tweet
+	tweetsRoutes.post('/incrementlikes', function(req, res) {
+		DataHelpers.incrementLikeTweet(req.body.tweet_id, err => {
+			if (err) {
+				res.status(500).json({ error: err.message });
+			} else {
+				res.status(201).send();
+			}
+		});
+	});
+	//decrement like on a tweet
+	tweetsRoutes.post('/decrementlikes', function(req, res) {
+		DataHelpers.decrementLikeTweet(req.body.tweet_id, err => {
 			if (err) {
 				res.status(500).json({ error: err.message });
 			} else {

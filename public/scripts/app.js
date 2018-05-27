@@ -4,6 +4,7 @@
  * Reminder: Use (and do all your DOM work in) jQuery's document ready function
  */
 $(document).ready(function() {
+	//escape script tags
 	function escape(str) {
 		var div = document.createElement('div');
 		div.appendChild(document.createTextNode(str));
@@ -22,10 +23,8 @@ $(document).ready(function() {
 		event.preventDefault();
 		var formInput = $(this).serialize();
 
-		console.log($('#composetweet').val().length);
-
 		if (!$('#composetweet').val()) {
-			console.log('please enter an input');
+			$('.counter').append(' <span><b>Please enter in an input</b></span>');
 		} else if ($('#composetweet').val().length < 140) {
 			$.ajax({
 				url: '/tweets',
@@ -35,6 +34,36 @@ $(document).ready(function() {
 				success: function(formInput) {
 					renderNewTweet(formInput);
 					$('#composetweet').val('');
+				},
+			});
+		} else if ($('#composetweet').val().length >= 140) {
+			$('.counter').append(' <span><b>Letters are more than 140 </b></span>');
+		}
+	});
+
+	//like a tweet and unlike tweet
+	$('body').on('click', 'i.fa-heart', function(event) {
+		const $icon = $(this);
+		const $article = $(this).closest('article');
+
+		let id = $article.data('id');
+
+		if (!$(this).hasClass('liked')) {
+			$.ajax({
+				url: '/tweets/incrementlikes',
+				method: 'POST',
+				data: 'text=' + id,
+				success: function() {
+					$icon.toggleClass('liked');
+				},
+			});
+		} else {
+			$.ajax({
+				url: '/tweets/decrementlikes',
+				method: 'POST',
+				data: 'text=' + id,
+				success: function() {
+					$icon.toggleClass('liked');
 				},
 			});
 		}
@@ -74,24 +103,26 @@ $(document).ready(function() {
 			var minutes = (currentDate - date) / 1000 / 60;
 			var hours = (currentDate - date) / 1000 / 60 / 60;
 			if (seconds < 60) {
-			  return `${Math.floor(seconds)} seconds ago`;
+				return `${Math.floor(seconds)} seconds ago`;
 			} else {
-			  if (minutes > 1 && minutes < 60) {
-				return `${Math.floor(minutes)} minutes ago`;
-			  } else {
-				if (minutes > 60 && hours < 24) {
-				  return `${Math.floor(hours)} hours ago`;
+				if (minutes > 1 && minutes < 60) {
+					return `${Math.floor(minutes)} minutes ago`;
 				} else {
-				  if (hours > 24) {
-					return `${Math.floor(hours / 24)} days ago`;
-				  }
+					if (minutes > 60 && hours < 24) {
+						return `${Math.floor(hours)} hours ago`;
+					} else {
+						if (hours > 24) {
+							return `${Math.floor(hours / 24)} days ago`;
+						}
+					}
 				}
-			  }
 			}
-		  }
+		}
 
 		//		const $tweet = $('<article>').addClass('tweet');
-		let $tweet = ` <article class="tweet"><header class="tweet-header">
+		let $tweet = ` <article data-id="${
+			tweet._id
+		}"class="tweet"><header class="tweet-header">
         <img src="${tweet.user.avatars.small}"> </img>
         <h2 class="tweet-name">${tweet.user.name}</h2>
         <p class="tweet-handler">${tweet.user.handle}</p>
@@ -106,14 +137,17 @@ $(document).ready(function() {
       <div class="footer-icons">
         <i class="fab fa-font-awesome-flag"></i>
         <i class="fas fa-retweet"></i>
-        <i class="fas fa-heart"></i>
+        <i id="likeTweet" class="fas fa-heart"> <span> ${
+					tweet.likes
+				} </span class="tweetLikesNum"></i>
       </div>
     </footer>
-    </article>`;
+		</article>`;
+
 		return $tweet;
 	}
 
-	//
+	//pass data to createTweetelement to make tweets
 	function renderTweets(data) {
 		return data.map(elem => {
 			let $tweet = createTweetElement(elem);

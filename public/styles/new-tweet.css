@@ -122,3 +122,7 @@ article.tweet  footer p{
  .fa-heart {
      color: #244751;
  }
+
+ .liked {
+     color: #FF0000;
+ }

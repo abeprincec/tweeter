@@ -16,5 +16,9 @@ $(document).ready(function() {
 			: $(this)
 					.siblings('.counter')
 					.removeClass('exceeded');
+
+					if (valuelen > 140) {
+						$('#counter').append(' <span><b>Appended text</b></span>');
+					}
 	});
 });
