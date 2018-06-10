@@ -21,9 +21,7 @@ module.exports = function(DataHelpers) {
 			return;
 		}
 
-		const user = req.body.user
-			? req.body.user
-			: userHelper.generateRandomUser();
+		const user = req.body.user ? req.body.user: userHelper.generateRandomUser();
 		const tweet = {
 			user: user,
 			content: {
@@ -43,7 +41,7 @@ module.exports = function(DataHelpers) {
 	});
 	//increment likes on a tweet
 	tweetsRoutes.post('/incrementlikes', function(req, res) {
-		DataHelpers.incrementLikeTweet(req.body.tweet_id, err => {
+		DataHelpers.incrementLikeTweet(req.body.text, err => {
 			if (err) {
 				res.status(500).json({ error: err.message });
 			} else {
@@ -53,7 +51,7 @@ module.exports = function(DataHelpers) {
 	});
 	//decrement like on a tweet
 	tweetsRoutes.post('/decrementlikes', function(req, res) {
-		DataHelpers.decrementLikeTweet(req.body.tweet_id, err => {
+		DataHelpers.decrementLikeTweet(req.body.text, err => {
 			if (err) {
 				res.status(500).json({ error: err.message });
 			} else {

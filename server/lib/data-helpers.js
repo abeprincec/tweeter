@@ -14,7 +14,7 @@ module.exports = function makeDataHelpers(db) {
 		getTweets: function(callback) {
 			db
 				.collection('tweets')
-				.find()
+				.find({})
 				.toArray(callback);
 		},
 		//incremnt likes on a tweet

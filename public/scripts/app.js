@@ -25,18 +25,18 @@ $(document).ready(function() {
 
 		if (!$('#composetweet').val()) {
 			$('.counter').append(' <span><b>Please enter in an input</b></span>');
-		} else if ($('#composetweet').val().length < 140) {
+		} else if ($('#composetweet').val().length <= 140) {
 			$.ajax({
 				url: '/tweets',
 				method: 'POST',
 				data: formInput,
-
+					
 				success: function(formInput) {
 					renderNewTweet(formInput);
 					$('#composetweet').val('');
 				},
 			});
-		} else if ($('#composetweet').val().length >= 140) {
+		} else if ($('#composetweet').val().length > 140) {
 			$('.counter').append(' <span><b>Letters are more than 140 </b></span>');
 		}
 	});
@@ -45,7 +45,8 @@ $(document).ready(function() {
 	$('body').on('click', 'i.fa-heart', function(event) {
 		const $icon = $(this);
 		const $article = $(this).closest('article');
-
+		//	const likeTweet =
+		let likeNum = $article.find("span").text();
 		let id = $article.data('id');
 
 		if (!$(this).hasClass('liked')) {
@@ -55,6 +56,9 @@ $(document).ready(function() {
 				data: 'text=' + id,
 				success: function() {
 					$icon.toggleClass('liked');
+					const $likeCount = $article.find('.likeNum');
+					const likeNum = $likeCount.text();
+					$likeCount.text(parseInt(likeNum) + 1 );
 				},
 			});
 		} else {
@@ -64,7 +68,9 @@ $(document).ready(function() {
 				data: 'text=' + id,
 				success: function() {
 					$icon.toggleClass('liked');
-					
+					const $likeCount = $article.find('.likeNum');
+					$likeCount.text(parseInt(likeNum) - 1 );
+
 				},
 			});
 		}
@@ -80,7 +86,7 @@ $(document).ready(function() {
 	  };
 
 	//render tweet after composing tweet
-	function renderNewTweet(data) {
+	function renderNewTweet() {
 		$.ajax({
 			url: '/tweets',
 			method: 'GET',
@@ -107,6 +113,7 @@ $(document).ready(function() {
 
 	//create one tweet element
 	function createTweetElement(tweet) {
+		
 		function changeTime(date) {
 			var currentDate = Date.now();
 			var seconds = (currentDate - date) / 1000;
@@ -128,7 +135,7 @@ $(document).ready(function() {
 				}
 			}
 		}
-
+			console.log(tweet.likes)
 		//		const $tweet = $('<article>').addClass('tweet');
 		let $tweet = ` <article data-id="${
 			tweet._id
@@ -147,7 +154,7 @@ $(document).ready(function() {
       <div class="footer-icons">
         <i class="fab fa-font-awesome-flag"></i>
         <i class="fas fa-retweet"></i>
-        <i id="likeTweet" class="fas fa-heart"> <span> ${
+        <i id="likeTweet" class="fas fa-heart"> <span class="likeNum"> ${
 					tweet.likes
 				} </span class="tweetLikesNum"></i>
       </div>
@@ -157,7 +164,7 @@ $(document).ready(function() {
 		return $tweet;
 	}
 
-	//pass data to createTweetelement to make tweets
+	//pass data to createTweet element to make tweets
 	function renderTweets(data) {
 		return data.map(elem => {
 			let $tweet = createTweetElement(elem);
