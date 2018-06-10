@@ -135,7 +135,6 @@ $(document).ready(function() {
 				}
 			}
 		}
-			console.log(tweet.likes)
 		//		const $tweet = $('<article>').addClass('tweet');
 		let $tweet = ` <article data-id="${
 			tweet._id
